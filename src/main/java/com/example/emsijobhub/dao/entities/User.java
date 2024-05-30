@@ -15,11 +15,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String role;
     private String email;
     private String passwd;
     private String phone;
     private String adress;
+    private String profile;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 }
 
