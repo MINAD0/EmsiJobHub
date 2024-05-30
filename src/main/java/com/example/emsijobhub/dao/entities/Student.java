@@ -15,13 +15,11 @@ import java.util.Date;
 @AllArgsConstructor
 @Table(name = "candidats")
 public class Student extends User {
-    private String nom_cand;
-    private String prenom_cand;
-    private String description_cand;
-    private String bio_cand;
-    private String titre_cand;
-    private Date date_naiss_cand;
-    private String genre;
-    private String image_cand;
-
+    private String firstName;
+    private String lastName;
+    private String description;
+    private String bio;
+    private String title;
+    private Date birth;
+    private String sexe;
 }
