@@ -1,11 +1,16 @@
 package com.example.emsijobhub.dao.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -15,11 +20,20 @@ import java.util.Date;
 @AllArgsConstructor
 @Table(name = "candidats")
 public class Student extends User {
-    private String firstName;
-    private String lastName;
+
+    private String name;
+    private String registrationNb;
     private String description;
     private String bio;
-    private String title;
+    private String jobTitle;
     private Date birth;
-    private String sexe;
+    private String gender;
+    private MultipartFile resume;
+
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDate createdAt;
+    @LastModifiedDate
+    @Column(insertable = false)
+    private LocalDate lastModified;
 }
