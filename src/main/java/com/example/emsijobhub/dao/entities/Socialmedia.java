@@ -22,7 +22,8 @@ public class Socialmedia {
     @Column(name = "url_rs", nullable = false)
     private String urlRs;
 
-    @ManyToMany(mappedBy = "socialMedias")
-    private List<User> users;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 }

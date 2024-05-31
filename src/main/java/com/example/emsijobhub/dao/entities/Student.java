@@ -28,7 +28,7 @@ public class Student extends User {
     private String jobTitle;
     private Date birth;
     private String gender;
-    private MultipartFile resume;
+    private String resume;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
