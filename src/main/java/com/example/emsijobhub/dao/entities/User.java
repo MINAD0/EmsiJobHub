@@ -38,6 +38,17 @@ public class User implements UserDetails {
     @Column(insertable = false)
     private LocalDate lastModified;
 
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDate.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        lastModified = LocalDate.now();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

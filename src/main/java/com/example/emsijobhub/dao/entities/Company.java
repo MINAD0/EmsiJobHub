@@ -1,8 +1,6 @@
 package com.example.emsijobhub.dao.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +24,9 @@ public class Company extends User {
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDate createdAt;
+
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDate lastModified;
+
 }
