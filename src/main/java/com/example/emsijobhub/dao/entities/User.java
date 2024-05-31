@@ -39,6 +39,14 @@ public class User implements UserDetails {
     @Column(insertable = false)
     private LocalDate lastModified;
 
+    @ManyToMany
+    @JoinTable(
+            name = "utilisateur_social_media",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_rs")
+    )
+    private List<Socialmedia> socialmedias;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
