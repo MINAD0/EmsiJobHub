@@ -20,6 +20,7 @@ public class User {
     private String phone;
     private String adress;
     private String profile;
+    private int status; //0 ou 1
 
     @Enumerated(EnumType.STRING)
     private Role role;
