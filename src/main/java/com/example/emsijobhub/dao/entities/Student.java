@@ -1,9 +1,8 @@
 package com.example.emsijobhub.dao.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,7 +16,7 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor @Builder
 @Table(name = "candidats")
 public class Student extends User {
 
@@ -36,4 +35,5 @@ public class Student extends User {
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDate lastModified;
+
 }
