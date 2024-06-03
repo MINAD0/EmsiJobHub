@@ -27,6 +27,7 @@ public class User implements UserDetails {
     private String phone;
     private String address;
     private String profile;
+    private int status; //0 ou 1
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -38,6 +39,8 @@ public class User implements UserDetails {
     @Column(insertable = false)
     private LocalDate lastModified;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Socialmedia> socialMedias;
 
     @PrePersist
     protected void onCreate() {
@@ -48,6 +51,9 @@ public class User implements UserDetails {
     protected void onUpdate() {
         lastModified = LocalDate.now();
     }
+
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

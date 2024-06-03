@@ -20,6 +20,7 @@ public class Company extends User {
     private String rhName;
     private String description;
     private String webSite;
+    private String city;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
