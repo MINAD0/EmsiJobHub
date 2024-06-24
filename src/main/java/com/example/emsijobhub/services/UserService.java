@@ -59,6 +59,9 @@ public class UserService {
         student.setRegistrationNb(studentRegisterRequest.getRegistrationNb());
         student.setPasswd(passwordEncoder.encode(studentRegisterRequest.getPassword()));
         student.setPhone(studentRegisterRequest.getPhone());
+        student.setBirth(studentRegisterRequest.getBirth());
+        student.setDescription(studentRegisterRequest.getDescription());
+        student.setBio(studentRegisterRequest.getBio());
         student.setAddress(studentRegisterRequest.getAddress());
         student.setGender(studentRegisterRequest.getGender());
         String profilePath = saveBase64File(studentRegisterRequest.getProfile(), studentRegisterRequest.getName() + "-profile.png", PROFILE_UPLOAD_DIR);
@@ -135,7 +138,6 @@ public class UserService {
                 .token(jwtToken)
                 .build();
     }
-
 
 
 }

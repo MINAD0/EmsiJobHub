@@ -16,7 +16,7 @@ public class StudentDto {
     private String address;
     private String description;
     private String bio;
-    private Date birth;
+    private String birth;
     private String gender;
     private String role;
     private String jobTitle;

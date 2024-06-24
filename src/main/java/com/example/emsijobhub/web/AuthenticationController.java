@@ -29,9 +29,6 @@ public class AuthenticationController {
 
     @PostMapping("/student/register")
     public ResponseEntity<AuthenticationResponse> StudentRegister(@RequestBody StudentRegisterRequest studentRegisterRequest) throws IOException {
-        logger.info("Received registration request: {}", studentRegisterRequest);
-        logger.info("Profile Base64: {}", studentRegisterRequest.getProfile());
-        logger.info("Resume Base64: {}", studentRegisterRequest.getResume());
         return ResponseEntity.ok(userService.registerStudent(studentRegisterRequest));
     }
 
