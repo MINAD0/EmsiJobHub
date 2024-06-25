@@ -11,7 +11,11 @@ import com.example.emsijobhub.dao.entities.Student;
 import com.example.emsijobhub.dao.entities.User;
 import com.example.emsijobhub.dao.repositories.UserRepository;
 import com.example.emsijobhub.dto.StudentDto;
+import com.example.emsijobhub.web.AuthenticationController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,12 +31,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService{
     @Autowired
     private UserRepository userRepository;
 
@@ -42,11 +47,11 @@ public class UserService {
     @Autowired
     private JwtService jwtService;
 
+    private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
+
     @Autowired
+    @Lazy
     private AuthenticationManager authenticationManager;
-    
-    @Autowired
-    private UserDetailsService userDetailsService;
 
 
     private final String PROFILE_UPLOAD_DIR = "uploads/profiles/";
@@ -115,9 +120,12 @@ public class UserService {
         return filePath;
     }
 
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username)
+        User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username));
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(), user.getPasswd(), new ArrayList<>());
     }
 
     public Optional<User> findByEmail(String email) {
@@ -125,19 +133,29 @@ public class UserService {
     }
 
     public AuthenticationResponse login(AuthenticationRequest authenticationRequest){
+        log.debug("Authenticating user with email: {}", authenticationRequest.getEmail());
+        // Authenticate the user
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authenticationRequest.getEmail(),
                         authenticationRequest.getPassword()
                 )
         );
-        var user = userRepository.findByEmail(authenticationRequest.getEmail()).orElseThrow();
-        UserDetails userDetails = loadUserByUsername(user.getEmail());
+        // Load user details only once
+        var user = userRepository.findByEmail(authenticationRequest.getEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + authenticationRequest.getEmail()));
+
+        UserDetails userDetails = new org.springframework.security.core.userdetails.User(
+                user.getEmail(), user.getPasswd(), new ArrayList<>());
+
         var jwtToken = jwtService.generateToken(new HashMap<>(), userDetails);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .userId(user.getId())
+                .userType(user.getRole().name())
                 .build();
     }
+
 
 
 }

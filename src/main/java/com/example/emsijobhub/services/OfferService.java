@@ -33,7 +33,7 @@ public class OfferService {
         Offer offer = Offer.builder()
                 .titre(offerDto.getTitre())
                 .dateOff(offerDto.getDateOff())
-                .period(offerDto.getPeriod())
+                .type(offerDto.getType())
                 .salary(offerDto.getSalary())
                 .descriptionOff(offerDto.getDescriptionOff())
                 .city(offerDto.getCity())
@@ -65,7 +65,7 @@ public class OfferService {
 
         offer.setTitre(offerDto.getTitre());
         offer.setDateOff(offerDto.getDateOff());
-        offer.setPeriod(offerDto.getPeriod());
+        offer.setType(offerDto.getType());
         offer.setSalary(offerDto.getSalary());
         offer.setDescriptionOff(offerDto.getDescriptionOff());
         offer.setCity(offerDto.getCity());
@@ -86,7 +86,7 @@ public class OfferService {
                 .id(offer.getId())
                 .titre(offer.getTitre())
                 .dateOff(offer.getDateOff())
-                .period(offer.getPeriod())
+                .type(offer.getType())
                 .salary(offer.getSalary())
                 .descriptionOff(offer.getDescriptionOff())
                 .city(offer.getCity())

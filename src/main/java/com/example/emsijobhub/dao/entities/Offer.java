@@ -22,7 +22,7 @@ public class Offer {
     private String titre;
     @Temporal(TemporalType.DATE)
     private Date dateOff;
-    private String period;
+    private String type;
     private Double salary;
     private String descriptionOff;
     private String city;

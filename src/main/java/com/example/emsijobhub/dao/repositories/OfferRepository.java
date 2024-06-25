@@ -12,6 +12,6 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
     List<Offer> findByTitre(String titre);
     List<Offer> findByCategoryId(Long categoryId);
     List<Offer> findByCity(String city);
-    List<Offer> findByPeriod(String period);
+    List<Offer> findByType(String period);
     List<Offer> findBySalaryBetween(Double minSalary, Double maxSalary);
 }

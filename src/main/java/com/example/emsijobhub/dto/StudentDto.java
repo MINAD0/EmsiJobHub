@@ -1,7 +1,9 @@
 package com.example.emsijobhub.dto;
 
+import com.example.emsijobhub.dao.entities.Role;
 import com.example.emsijobhub.dao.entities.Student;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
@@ -16,7 +18,8 @@ public class StudentDto {
     private String address;
     private String description;
     private String bio;
-    private String birth;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birth;
     private String gender;
     private String role;
     private String jobTitle;
@@ -24,14 +27,22 @@ public class StudentDto {
     private String resume;
 
 
-    public StudentDto(Student student) {
-        this.id = student.getId();
-        this.name = student.getName();
-        this.email = student.getEmail();
-        this.phone = student.getPhone();
-        this.address = student.getAddress();
-        this.gender = student.getGender();
-        this.profile = student.getProfile();
-        this.resume = student.getResume();
+    public Student toEntity() {
+        Student student = new Student();
+        student.setId(id);
+        student.setName(name);
+        student.setEmail(email);
+        student.setRegistrationNb(registrationNb);
+        student.setPhone(phone);
+        student.setAddress(address);
+        student.setDescription(description);
+        student.setBio(bio);
+        student.setBirth(birth);
+        student.setGender(gender);
+        student.setRole(Role.valueOf(role)); // Assuming role is set externally
+        student.setJobTitle(jobTitle);
+        student.setProfile(profile);
+        student.setResume(resume);
+        return student;
     }
 }

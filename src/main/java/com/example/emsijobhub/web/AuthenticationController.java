@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.io.IOException;
 
@@ -40,6 +41,15 @@ public class AuthenticationController {
     @PostMapping("/login")
     public  ResponseEntity<AuthenticationResponse> Login(@RequestBody AuthenticationRequest authenticationRequest){
         return ResponseEntity.ok(userService.login(authenticationRequest));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@RequestHeader("Authorization") String token) {
+        if (token != null && token.startsWith("Bearer ")) {
+            String jwtToken = token.substring(7);
+            SecurityContextHolder.clearContext();
+        }
+        return ResponseEntity.ok().build();
     }
 
 }

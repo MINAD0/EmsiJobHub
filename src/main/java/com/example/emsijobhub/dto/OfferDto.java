@@ -15,7 +15,7 @@ public class OfferDto {
     private Long id;
     private String titre;
     private Date dateOff;
-    private String period;
+    private String type;
     private Double salary;
     private String descriptionOff;
     private String city;
